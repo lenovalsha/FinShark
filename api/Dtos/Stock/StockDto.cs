@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Dtos.Comment
+namespace api.Dtos.Stock
 {
     //this dto just makes it so when we get responses back
     public class StockDto

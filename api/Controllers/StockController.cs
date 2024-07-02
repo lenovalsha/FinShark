@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Dtos.Stock;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace api.Controllers
 {
@@ -37,5 +39,20 @@ namespace api.Controllers
             }
             return Ok(stock.ToStockDto()); //else return the stock by Id
         }
+
+
+        #region POST
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateStockRequestDto createStockDto)
+        {
+            var stockModel = createStockDto.ToStockFromCreateDto(); //making based on the dto
+            _context.Stocks.Add(stockModel);
+            _context.SaveChanges();
+            //it is going to execute the GetById method
+            //it is going to pass in this new object into the id
+            //after that it is going to return in a form of ToStockDto
+            return CreatedAtAction(nameof(GetById), new {id = stockModel.Id}, stockModel.ToStockDto());
+        }
+        #endregion
     }
 }
