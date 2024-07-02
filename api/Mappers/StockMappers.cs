@@ -12,9 +12,13 @@ namespace api.Mappers
         public static StockDto ToStockDto(this Stock stockModel)
         {
             //return what you want the users to see
+            //this is to reshape the data
             return new StockDto {
+                //StockDto variable = Models.Stock Variables
                     Id = stockModel.Id,
-                    Symbol = stockModel.Symbol,
+                    // Symbol = stockModel.Symbol,
+                    // CompanyName = stockModel.CompanyName,
+                    // Purchase = stockModel.Purchase
             };
         }
     }

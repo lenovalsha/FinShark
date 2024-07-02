@@ -13,13 +13,13 @@ namespace api.Dtos.Comment
         public string CompanyName { get; set; } = string.Empty;
 
         //make sure that it is monetory amount
-        [Column(TypeName = "decimal(18,2)")]
         public decimal Purchase { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
         public decimal LastDiv { get; set; }
         public string Industry { get; set; } = string.Empty;
 
         public long MarketCap { get; set; }
+
+        //comments where here
     }
 }
