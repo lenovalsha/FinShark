@@ -6,6 +6,7 @@ using api.Data;
 using api.Dtos.Stock;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using Microsoft.JSInterop.Infrastructure;
 
 namespace api.Controllers
@@ -53,6 +54,28 @@ namespace api.Controllers
             //after that it is going to return in a form of ToStockDto
             return CreatedAtAction(nameof(GetById), new {id = stockModel.Id}, stockModel.ToStockDto());
         }
+        #endregion
+        #region UPDATE 
+        //in order to make an update, a data must exist already
+
+        [HttpPut]
+        [Route("{id}")] //specify our search based on id
+        public IActionResult Update([FromRoute]int id, [FromBody]UpdateStockRequestDto updateStockDto )
+        {
+            var stockModel = _context.Stocks.FirstOrDefault(x => x.Id == id);
+            if(stockModel == null)
+                return NotFound();
+
+                stockModel.Symbol = updateStockDto.Symbol;
+                stockModel.CompanyName = updateStockDto.CompanyName;
+
+            _context.SaveChanges(); //this is whats actually going to send to the database
+
+            return Ok(stockModel.ToStockDto());
+
+        }
+        
+
         #endregion
     }
 }
