@@ -13,6 +13,10 @@ using Microsoft.JSInterop.Infrastructure;
 
 namespace api.Controllers
 {
+    //Controller is manipulating our URLS
+    //not for our databases
+
+
     [Route("api/stock")]
     [ApiController]
     public class StockController :ControllerBase
