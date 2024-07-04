@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lnova\\Downloads\\FinShark-master\\FinShark-master\\api\\api.csproj": {}
+    "C:\\Users\\lnova\\OneDrive\\Desktop\\C#\\Projects\\ASP.Net Web API\\FinShark-master\\FinShark-master\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lnova\\Downloads\\FinShark-master\\FinShark-master\\api\\api.csproj": {
+    "C:\\Users\\lnova\\OneDrive\\Desktop\\C#\\Projects\\ASP.Net Web API\\FinShark-master\\FinShark-master\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lnova\\Downloads\\FinShark-master\\FinShark-master\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\lnova\\OneDrive\\Desktop\\C#\\Projects\\ASP.Net Web API\\FinShark-master\\FinShark-master\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\lnova\\Downloads\\FinShark-master\\FinShark-master\\api\\api.csproj",
+        "projectPath": "C:\\Users\\lnova\\OneDrive\\Desktop\\C#\\Projects\\ASP.Net Web API\\FinShark-master\\FinShark-master\\api\\api.csproj",
         "packagesPath": "C:\\Users\\lnova\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lnova\\Downloads\\FinShark-master\\FinShark-master\\api\\obj\\",
+        "outputPath": "C:\\Users\\lnova\\OneDrive\\Desktop\\C#\\Projects\\ASP.Net Web API\\FinShark-master\\FinShark-master\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lnova\\AppData\\Roaming\\NuGet\\NuGet.Config",

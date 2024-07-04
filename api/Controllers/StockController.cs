@@ -92,8 +92,8 @@ namespace api.Controllers
             if(stockModel == null)
             return NotFound();
 
-             _context.Stocks.Remove(stockModel); //with delete the remove is not an asynchronous funtion
-           await _context.SaveChangesAsync();
+            _context.Stocks.Remove(stockModel); //with delete the remove is not an asynchronous funtion
+            await _context.SaveChangesAsync();
                 
             return Ok(stockModel.ToStockDto());
         }
