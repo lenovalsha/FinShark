@@ -23,10 +23,10 @@ namespace api.Controllers
     public class StockController :ControllerBase
     {
         private readonly ApplicationDBContext _context; //this provides more security when its private and readonly
-        private readonly IStockRepository _stockRepo;
+        private readonly IStockRepository _stockRepo; //added this way later 
         public StockController(ApplicationDBContext context, IStockRepository stockRepo)
         {
-            _stockRepo = stockRepo;
+            _stockRepo = stockRepo; //adeed this after 
             _context = context;
         }
         //READ
@@ -34,6 +34,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> Getll()
         {
+            //  var stocks = await _context.Stocks.ToListAsync(); --> from this to this 
             var stocks = await _stockRepo.GetAllAsync();
             var stockDto = stocks.Select(s=> s.ToStockDto());//defered execution - this is so that it selects certain information you want to show
             //==> Select(s=> s.ToStockDto()) ==> This is from the Mappers Method  -

@@ -6,6 +6,7 @@ using api.Data;
 using api.Dtos.Stock;
 using api.Interfaces;
 using api.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -20,19 +21,28 @@ namespace api.Repository
         //bring in our context
         private readonly ApplicationDBContext _context;
         
-        public StockRepository(ApplicationDBContext context)
+        public  StockRepository(ApplicationDBContext context)
         {
             _context = context;
         }
 
-        public Task<Stock> CreateAsync(Stock stockModel)
+        public async Task<Stock> CreateAsync(Stock stockModel)
         {
-            throw new NotImplementedException();
+            await _context.Stocks.AddAsync(stockModel);
+            await _context.SaveChangesAsync();
+            return stockModel;
         }
 
-        public Task<Stock?> DeleteAsync(int id)
+        public async Task<Stock?> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var stockModel = await _context.Stocks.FirstOrDefaultAsync(x=>x.Id == id); //fetch our existing model
+
+            if(stockModel == null)
+            return null;
+           
+             _context.Stocks.Remove(stockModel);
+             await _context.SaveChangesAsync();
+             return stockModel;
         }
 
         public async Task<List<Stock>> GetAllAsync()
@@ -40,14 +50,29 @@ namespace api.Repository
             return await _context.Stocks.ToListAsync();
         }
 
-        public Task<Stock?> GetByIdAsync(int id)
+        public async Task<Stock?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            // return await _context.Stocks.FindAsync(id); OR 
+             var stockModel = await _context.Stocks.FindAsync(id); //find the stock by id
+
+            if(stockModel ==null) //if cant find it then return not found
+            {
+                return null;
+            }
+            return stockModel;
         }
 
-        public Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto stockDto)
+        public async Task<Stock?> UpdateAsync(int id, UpdateStockRequestDto stockDto)
         {
-            throw new NotImplementedException();
+           var stockModel = await _context.Stocks.FirstOrDefaultAsync(x=> x.Id == id);
+           if(stockModel == null)
+           return null;
+           
+           stockModel.Symbol = stockDto.Symbol;
+           stockModel.CompanyName = stockDto.CompanyName;
+
+           await _context.SaveChangesAsync();
+           return stockModel;
         }
     }
 }
