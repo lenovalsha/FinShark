@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Data;
 using api.Interfaces;
 using api.Models;
 
@@ -12,9 +13,15 @@ namespace api.Repository
     
     {
 
-        public Task<List<Stock>> GetAllAsync()
+        //bring in our context
+        
+        public StockRepository(ApplicationDBContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<List<Stock>> GetAllAsync()
+        {
+            return await _context.Stocks.ToListAsync();
         }
         
     }

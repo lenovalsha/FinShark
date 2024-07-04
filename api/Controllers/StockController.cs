@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Dtos.Stock;
+using api.Interfaces;
 using api.Mappers;
 using api.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,10 @@ namespace api.Controllers
     public class StockController :ControllerBase
     {
         private readonly ApplicationDBContext _context; //this provides more security when its private and readonly
-        public StockController(ApplicationDBContext context)
+        private readonly IStockRepository _stockRepo;
+        public StockController(ApplicationDBContext context, IStockRepository stockRepo)
         {
+            _stockRepo = stockRepo;
             _context = context;
         }
         //READ
@@ -31,7 +34,7 @@ namespace api.Controllers
         [HttpGet]
         public async Task<IActionResult> Getll()
         {
-            var stocks = await _context.Stocks.ToListAsync();
+            var stocks = await _stockRepo.GetAllAsync();
             var stockDto = stocks.Select(s=> s.ToStockDto());//defered execution - this is so that it selects certain information you want to show
             //==> Select(s=> s.ToStockDto()) ==> This is from the Mappers Method  -
             //Make the DTo first then the mapper
