@@ -44,7 +44,7 @@ namespace api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var stock = await _context.Stocks.FindAsync(id); //find the stock by id
+            var stock = await _stockRepo.GetByIdAsync(id);//find the stock by id
 
             if(stock ==null) //if cant find it then return not found
             {
@@ -59,8 +59,8 @@ namespace api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateStockRequestDto createStockDto)
         {
             var stockModel =  createStockDto.ToStockFromCreateDto(); //making based on the dto
-            await _context.Stocks.AddAsync(stockModel);
-            await _context.SaveChangesAsync();
+            await _stockRepo.CreateAsync(stockModel);
+            
             //it is going to execute the GetById method
             //it is going to pass in this new object into the id
             //after that it is going to return in a form of ToStockDto
@@ -75,14 +75,14 @@ namespace api.Controllers
         [Route("{id}")] //specify our search based on id
         public async Task< IActionResult> Update([FromRoute]int id, [FromBody]UpdateStockRequestDto updateStockDto )
         {
-            var stockModel = await _context.Stocks.FirstOrDefaultAsync(x => x.Id == id);
+            var stockModel = await _stockRepo.UpdateAsync(id,updateStockDto);
             if(stockModel == null)
                 return NotFound();
 
-                stockModel.Symbol = updateStockDto.Symbol;
-                stockModel.CompanyName = updateStockDto.CompanyName;
+                // stockModel.Symbol = updateStockDto.Symbol;
+                // stockModel.CompanyName = updateStockDto.CompanyName;
 
-           await _context.SaveChangesAsync(); //this is whats actually going to send to the database
+        //    await _context.SaveChangesAsync(); //this is whats actually going to send to the database
 
             return Ok(stockModel.ToStockDto());
 
