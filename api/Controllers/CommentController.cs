@@ -18,13 +18,14 @@ namespace api.Controllers
             _commentRepo = commentRepo;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var comments = await _commentRepo.GetAllAsync();
 
             //turn the comments that we get from our database and turn them into dtos
             var commentDto = comments.Select(s => s.ToCommentDto());
-
+             return Ok(commentDto);
         }
     }
 }
