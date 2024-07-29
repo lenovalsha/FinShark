@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using api.Dtos.Comment;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;
@@ -29,15 +30,27 @@ namespace api.Controllers
             var commentDto = comments.Select(s => s.ToCommentDto());
              return Ok(commentDto);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult?> GetCommentById([FromRoute] int id)
-        {
-            var comment = await _commentRepo.GetCommentById(id);
-            if(comment == null)
-            return NotFound();
+       [HttpGet("{id}")]
+       public async Task<IActionResult> GetCommentById([FromRoute] int id)
+       {
+        var comment = await _commentRepo.GetCommentById(id);
+        if(comment == null)
+        return NotFound();
 
-            return Ok(comment.ToCommentDto());
-        }
+        return Ok(comment.ToCommentDto());
+       }
 
+       [HttpPut("{id}")]
+       public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] CommentUpdateDTO commentUpdateDTO)
+       {
+         var commentModel = await _commentRepo.EditCommentById(id, commentUpdateDTO);
+
+         if(commentModel == null)
+         return NotFound();
+
+        return Ok(commentModel.ToCommentDto());
+
+       }
     }
+
 }
