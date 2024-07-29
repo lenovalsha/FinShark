@@ -21,6 +21,16 @@ namespace api.Controllers
             _commentRepo = commentRepo;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateNewComment([FromBody] CreateCommentDto createCommentDto)
+        {
+                var comment = createCommentDto.ToCreateCommentDto();
+                await _commentRepo.CreateCommentAsync(comment);
+
+            return CreatedAtAction(nameof(GetCommentById), new {id = comment.Id}, comment.ToCommentDto());
+
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -50,6 +60,16 @@ namespace api.Controllers
 
         return Ok(commentModel.ToCommentDto());
 
+       }
+       [HttpDelete("{id}")]
+       public async Task<IActionResult> DeleteAsync([FromRoute]int id)
+       {
+            var comment = await _commentRepo.DeleteAsync(id);
+
+            if(comment == null)
+            return NotFound();
+
+            return Ok(comment.ToCommentDto());
        }
     }
 
